@@ -11,7 +11,7 @@ tags:
 
 This is a [Laravel](https://laravel.com/) starter app that connects to a Railway Postgres database.
 
-[![Deploy on Railway Test](https://railway.app/button.svg)](https://railway.app/new?template=https%3A%2F%2Fgithub.com%2Frailwayapp%2Fexamples%2Ftree%2Fmaster%2Fexamples%2Flaravel&plugins=postgresql)
+[![Deploy on Railway Test](https://railway.app/button.svg)](https://railway.app/new/template/fWEWWf)
 
 ## ✨ Features
 
