@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-if [ "$SUPERVISOR_PHP_USER" != "root" ] && [ "$SUPERVISOR_PHP_USER" != "sail" ]; then
-    echo "You should set SUPERVISOR_PHP_USER to either 'sail' or 'root'."
-    exit 1
-fi
-
 if [ ! -z "$WWWUSER" ]; then
     usermod -u $WWWUSER sail
 fi
@@ -13,7 +8,19 @@ if [ ! -d /.composer ]; then
     mkdir /.composer
 fi
 
+npm install
+composer install
+php artisan migrate
 chmod -R ugo+rw /.composer
+
+if [ ! -z "$PORT" ]; then
+    sed -i -e "s/--port=80/--port=$PORT/g" /etc/supervisor/conf.d/supervisord.conf
+fi
+
+cat .env | grep -q APP_KEY=base64
+if [ ! "$?" -eq 0 ]; then
+    php artisan key:generate
+fi
 
 if [ $# -gt 0 ]; then
     if [ "$SUPERVISOR_PHP_USER" = "root" ]; then
